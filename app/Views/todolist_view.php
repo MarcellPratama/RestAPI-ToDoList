@@ -27,7 +27,7 @@
                     To Do List
                 </div>
                 <div class="card-body">
-                    <form action="/addTask" method="post" class="d-flex mb-3">
+                    <form action="/todolist" method="post" class="d-flex mb-3">
                         <input type="text" class="form-control me-3" 
                         id="kegiatan" name="kegiatan" placeholder="<Teks to do>" required>
                         <button type="submit" class="btn btn-primary ms-2">Tambah</button>
@@ -39,12 +39,23 @@
                                     <?= esc($task['kegiatan']) ?>
                                 </span>
                                 <div class="task-actions">
-                                    <?php if ($task['status'] == 'Aktif'): ?>
-                                        <a href="/updateTaskStatus/<?= $task['idkegiatan'] ?>" class="btn btn-success btn-sm me-2">Selesai</a>
-                                        <a href="/deleteTask/<?= $task['idkegiatan'] ?>" class="btn btn-danger btn-sm">Hapus</a>
+                                <?php if ($task['status'] == 'Aktif'): ?>
+                                        <form action="/todolist/<?= $task['idkegiatan'] ?>" method="post" class="d-inline">
+                                            <input type="hidden" name="_method" value="PUT">
+                                            <input type="hidden" name="kegiatan" value="<?= esc($task['kegiatan']) ?>">
+                                            <input type="hidden" name="status" value="Selesai">
+                                            <button type="submit" class="btn btn-success btn-sm me-2">Selesai</button>
+                                        </form>
+                                        <form action="/todolist/<?= $task['idkegiatan'] ?>" method="post" class="d-inline">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                        </form>
                                     <?php else: ?>
-                                        <a href="#" class="btn btn-secondary btn-sm disabled me-2">Selesai</a>
-                                        <a href="/deleteTask/<?= $task['idkegiatan'] ?>" class="btn btn-danger btn-sm">Hapus</a>
+                                        <button class="btn btn-secondary btn-sm disabled me-2">Selesai</button>
+                                        <form action="/todolist/<?= $task['idkegiatan'] ?>" method="post" class="d-inline">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                        </form>
                                     <?php endif; ?>
                                 </div>
                             </li>

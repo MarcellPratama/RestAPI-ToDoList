@@ -5,12 +5,13 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-// $routes->get('/', 'Home::index');
-$routes->get('/', 'TodolistController::index');
-$routes->get('/login', 'TodolistController::login');
-$routes->post('/loginSubmit', 'TodolistController::loginSubmit');
-$routes->post('/addTask', 'TodolistController::addTask');
-$routes->get('/updateTaskStatus/(:num)', 'TodolistController::updateTaskStatus/$1');
-$routes->get('/deleteTask/(:num)', 'TodolistController::deleteTask/$1');
-$routes->get('/logout', 'TodolistController::logout');
+$routes->get('todolist', 'TodolistControllerAPI::index');
+$routes->post('todolist', 'TodolistControllerAPI::create');
+$routes->put('todolist/(:num)', 'TodolistControllerAPI::update/$1');
+$routes->delete('todolist/(:num)', 'TodolistControllerAPI::delete/$1');
+
+// User login routes
+$routes->get('login', 'UserController::loginView');
+$routes->post('loginSubmit', 'UserController::login');
+$routes->get('logout', 'UserController::logout');
 
